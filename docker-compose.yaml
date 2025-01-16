@@ -28,7 +28,9 @@ services:
       - spring
   ms-usuarios:
     container_name: ms-usuarios
-    image: usuarios:latest
+    build:
+      context: ./
+      dockerfile: ./ms-usuarios/Dockerfile
     ports:
       - "8001:8001"
     env_file:
@@ -40,7 +42,9 @@ services:
     restart: always
   ms-cursos:
     container_name: ms-cursos
-    image: cursos:latest
+    build:
+      context: ./
+      dockerfile: ./ms-cursos/Dockerfile
     ports:
       - "8002:8002"
     env_file:
@@ -49,6 +53,7 @@ services:
       - spring
     depends_on:
       - postgres14
+      - ms-usuarios
     restart: always
 #Se definen los volumenes y la red
 volumes:
