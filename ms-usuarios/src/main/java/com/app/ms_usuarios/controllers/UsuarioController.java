@@ -4,6 +4,8 @@ import com.app.ms_usuarios.models.Usuario;
 import com.app.ms_usuarios.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,13 @@ import java.util.*;
 public class UsuarioController {
     @Autowired
     private UsuarioService service;
+    @Autowired
+    private ApplicationContext context;
+
+    @GetMapping("/crash")
+    public void crash(){
+        ((ConfigurableApplicationContext)context).close();
+    }
 
     @GetMapping("/")
     public Map<String,List<Usuario>> listar(){
