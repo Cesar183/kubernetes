@@ -4,7 +4,7 @@ metadata:
   labels:
   name: mysql8
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mysql8
@@ -23,3 +23,11 @@ spec:
             value: admin
           - name: MYSQL_DATABASE
             value: ms_usuarios
+        volumeMounts:
+          - name: data-mysql
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: data-mysql
+          hostPath:
+            path: /var/lib/mysql
+            type: DirectoryOrCreate
